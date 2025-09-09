@@ -6,6 +6,7 @@ class Titulo():
         self._nossonumero = nossonumero
         self._valor = valor
         self._pagadornome = pagadornome
+        self._erro = ""  # Atributo para armazenar mensagens de erro
     
     # Property para nosso numero
     @property
@@ -14,10 +15,13 @@ class Titulo():
     
     @nossonumero.setter
     def nossonumero(self, novo_numero):
+        self._erro = ""  # Limpa erro anterior
         if not isinstance(novo_numero, str):
-            raise TypeError("Nosso número deve ser uma string")
+            self._erro = "Nosso número deve ser uma string"
+            return
         if not novo_numero.strip():
-            raise ValueError("Nosso número não pode estar vazio")
+            self._erro = "Nosso número não pode estar vazio"
+            return
         self._nossonumero = novo_numero.strip()
     
     # Property para nome com getter e setter
@@ -27,10 +31,13 @@ class Titulo():
     
     @pagadornome.setter
     def pagadornome(self, novo_nome):
+        self._erro = ""  # Limpa erro anterior
         if not isinstance(novo_nome, str):
-            raise TypeError("Nome deve ser uma string")
+            self._erro = "Nome deve ser uma string"
+            return
         if not novo_nome.strip():
-            raise ValueError("Nome não pode estar vazio")
+            self._erro = "Nome não pode estar vazio"
+            return
         self._pagadornome = novo_nome.strip()
     
     # Property para valor com validação
@@ -40,11 +47,18 @@ class Titulo():
     
     @valor.setter
     def valor(self, nova_valor):
+        self._erro = ""  # Limpa erro anterior
         if nova_valor < 0:
-            raise ValueError("Valor deve ser maior que zero")
+            self._erro = "Valor deve ser maior que zero"
+            return
         self._valor = nova_valor
     
      
+    # Property para acessar mensagem de erro
+    @property
+    def erro(self):
+        return self._erro
+    
     # Property que formata dados
     @property
     def info_completa(self):

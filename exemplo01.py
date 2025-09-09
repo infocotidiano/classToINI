@@ -23,8 +23,20 @@ def incluir_titulo():
         # Método novo: criar instância vazia e atribuir diretamente
         titulo_atual = Titulo()
         titulo_atual.nossonumero = nossonumero
+        if titulo_atual.erro:
+            print(f"Erro no nosso número: {titulo_atual.erro}")
+            continue
+        
         titulo_atual.valor = valor
+        if titulo_atual.erro:
+            print(f"Erro no valor: {titulo_atual.erro}")
+            continue
+        
         titulo_atual.pagadornome = nome
+        if titulo_atual.erro:
+            print(f"Erro no nome: {titulo_atual.erro}")
+            continue
+        
         lista_titulos.append(titulo_atual)
         print("Titulo Cadastrado -----------------")
         print(f"Pagador: {titulo_atual.pagadornome} NossoNumero: {titulo_atual.nossonumero} Valor: {titulo_atual.valor}")
@@ -61,8 +73,11 @@ def alterar_valor():
     try:
         nova_valor = float(input("Informe o novo valor: "))
         titulo_atual.valor = nova_valor
-        print(f"Valor alterado para: {titulo_atual.valor}")
-    except (ValueError, TypeError) as e:
+        if titulo_atual.erro:
+            print(f"Erro: {titulo_atual.erro}")
+        else:
+            print(f"Valor alterado para: {titulo_atual.valor}")
+    except ValueError as e:
         print(f"Erro: {e}")
 #endregion
 
@@ -94,11 +109,11 @@ def alterar_nome():
         return
     
     novo_nome = input("Informe o novo nome: ")
-    try:
-        titulo_atual.pagadornome = novo_nome
+    titulo_atual.pagadornome = novo_nome
+    if titulo_atual.erro:
+        print(f"Erro: {titulo_atual.erro}")
+    else:
         print(f"Nome alterado para: {titulo_atual.pagadornome}")
-    except (ValueError, TypeError) as e:
-        print(f"Erro: {e}")
 #endregion
 
 #region gerar_ini
